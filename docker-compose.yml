@@ -1,4 +1,15 @@
 services:
+
+  pythonapp:
+    image: pythonapp
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    depends_on:
+      - neo4j
+    networks:
+      - default
+
   neo4j:
     image: neo4j:latest
     platform: linux/amd64
@@ -8,11 +19,12 @@ services:
     environment:
       NEO4J_AUTH: neo4j/password
     volumes:
-      - ./data/neo4j/data:/data
-      - ./data/neo4j/logs:/logs
-      - ./data/neo4j/import:/var/lib/neo4j/import
-      - ./data/neo4j/plugins:/plugins
-      - ./csv:/var/lib/neo4j/import/csv
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_data:/var/lib/neo4j/import
+      - neo4j_data:/plugins
+    networks:
+      - default
   
   dbpostgres:
     image: postgres
@@ -35,16 +47,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: pass
     ports:
       - 5050:80
-  dbmongo:
-    image: mongo
-    restart: always
-    ports:
-      - 27017:27017
-    networks:
-      - default
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
 
 volumes:
   neo4j_data:
