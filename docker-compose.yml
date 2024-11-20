@@ -47,11 +47,21 @@ services:
       PGADMIN_DEFAULT_PASSWORD: pass
     ports:
       - 5050:80
+  
+  jupyter:
+    image: jupyter/pyspark-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - pyspark-data:/notebooks:/home/jovyan/work
+    networks:
+      - default
 
 volumes:
   neo4j_data:
   neo4j_logs:
   db-data:
+  pyspark-data:
 
 networks:
   default:
