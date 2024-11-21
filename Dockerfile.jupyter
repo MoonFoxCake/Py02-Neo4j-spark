@@ -9,6 +9,8 @@ RUN wget https://github.com/neo4j/neo4j-spark-connector/releases/download/5.2.0/
 
 RUN wget https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -P /usr/local/spark/jars/
 
+RUN pip install pandas psycopg2-binary matplotlib seaborn
+
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
