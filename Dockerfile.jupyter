@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y wget
 # Download the Neo4j Spark Connector JAR
 RUN wget https://github.com/neo4j/neo4j-spark-connector/releases/download/5.2.0/neo4j-connector-apache-spark_2.12-5.2.0_for_spark_3.jar -P /usr/local/spark/jars/
 
-RUN wget https://jdbc.postgresql.org/download/postgresql-42.2.27.jre6.jar -P /usr/local/spark/jars/
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -P /usr/local/spark/jars/
 
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
